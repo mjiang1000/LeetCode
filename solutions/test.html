@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+	
+	var d = Date.now();
+var isPalidrome = function(s) {
+  var slen = s.length
+  for (var i=0;i<slen/2;i++) {
+    if (s[i] != s[slen-i-1]) return false
+  }
+  return true
+}
+var longestPalindrome = function(s) {
+  var tlen = 1, longestr = '', slen = s.length
+  for(var i=0;i<slen;i++) {
+    for(var j=i;j<slen;j++) {
+      if (s[j]==s[tlen-j-1]) {
+        longestr = s.substring(i,i+tlen); 
+        if (isPalidrome(longestr)){tlen=1+ longestr.length;j=0}
+        
+      }
+    }
+
+  }
+
+  return longestr
+};
+
+longestPalindrome("babad")
+console.log('time :'+(Date.now()-d))
+</script>
+</body>
+</html>
