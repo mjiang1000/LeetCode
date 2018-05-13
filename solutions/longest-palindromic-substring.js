@@ -10,25 +10,33 @@
  * @return {string}
  */
 
-var isPalidrome = function(s) {
-  var slen = s.length
-  for (var i=0;i<slen/2;i++) {
-  	if (s[i] != s[slen-i-1]) return false
-  }
-  return true
-}
 var longestPalindrome = function(s) {
-  var tlen = 1, longestr = '', slen = s.length
-  for(var i=0;i<slen;i++) {
-  	for(var j=i;j<slen;j++) {
-  	  if (s[i]==s[tlen-i-1]) {
-  	  	longestr = s.substring(i,i+tlen); 
-  	  	if (isPalidrome(longestr)){tlen=1+ longestr.length;j=slen}
-  	  	
-  	  }
-  	}
+  var longestr = '', slen = s.length
 
+
+
+
+  var isPalidrome = function(s, low, high) {
+    while(low>=0 && high<slen) {
+      if (s[low]===s[high]  ) {
+        if (high-low >= longestr.length)longestr = s.substring(low,high+1)
+        low--; high++
+
+      } else{
+        return
+      }
+    }
   }
 
+  for (var i=0;i<slen;i++) {
+    
+    isPalidrome(s,i,i)
+    isPalidrome(s,i,i+1)
+    
+  }
   return longestr
 };
+//思路，从中心向两侧对称，减少判断，加快速度 时间复杂度O(n^2)
+
+
+// Manacher算法能够在O(N)的时间复杂度 **新思路

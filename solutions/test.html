@@ -6,31 +6,24 @@
 <body>
 <script type="text/javascript">
 	
-	var d = Date.now();
-var isPalidrome = function(s) {
-  var slen = s.length
-  for (var i=0;i<slen/2;i++) {
-    if (s[i] != s[slen-i-1]) return false
-  }
-  return true
-}
-var longestPalindrome = function(s) {
-  var tlen = 1, longestr = '', slen = s.length
-  for(var i=0;i<slen;i++) {
-    for(var j=i;j<slen;j++) {
-      if (s[j]==s[tlen-j-1]) {
-        longestr = s.substring(i,i+tlen); 
-        if (isPalidrome(longestr)){tlen=1+ longestr.length;j=0}
-        
-      }
-    }
+var d = Date.now();
 
-  }
+var isPalindrome = function(x) {
+  if (x<0) return false
+  if (x==0) return true
 
-  return longestr
+  var y = 0, p =10, z =x
+  while(z) {
+    y=y*10+z%10
+    z = parseInt(z/10)
+  }
+  // console.log(y)
+  return x== y
+
 };
 
-longestPalindrome("babad")
+console.log(isPalindrome(123))
+
 console.log('time :'+(Date.now()-d))
 </script>
 </body>
