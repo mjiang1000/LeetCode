@@ -8,22 +8,41 @@
  *	  [-1, -1, 2]
  *	]
  */
-
+/**
+ * 思路，暴力方法不可取，复杂度n^3，超出时间限制
+ * 先排序，降低复杂度n^2
+ */
 
 /**
  * @param {number[]} nums
  * @return {number[][]}
  */
+
+
 var threeSum = function(nums) {
-  var r = [], m = {}
-  for (var i = 0;i<nums.length;i++) if(typeof m[nums[i]] == 'undefined') m[nums[i]] = i
-  console.log(m)
-  for (var i =0; i < nums.length; i++) {
-    for (var j=i+1; j< nums.length - 1;j++) {
-      var k = m[-(nums[i] + nums[j])]
-      if (k && k>j) r.push([nums[i], nums[j], nums[k]])
-  	}
+  var n = nums.sort(function(a,b) { return a - b}),
+  r = [], len = nums.length 
+  if (len<2) return []
+
+  for (var i = 0;i< len; i++) {
+    if (i > 0 && n[i] == n[i-1]) {continue}
+    var start = i + 1, end = len-1
+    while(start < end) {
+      var s = n[i] + n[start] + n[end] 
+      if(s > 0) {end--}
+      else if(s < 0) {start++}
+      else {
+        r.push([n[i] , n[start] , n[end] ]);
+        // 跳过重复
+        start++
+        end--
+        while (start < end && n[start] == n[start-1]) { start++}
+        while (end > start && n[end] == n[end+1]) {end--}
+
+      }
+    } 
   }
+
   return r
 };
 

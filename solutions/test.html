@@ -6,45 +6,43 @@
 <body>
 <script type="text/javascript">
 	
-var threeSum = function(nums) {
-  var r = [], m = {}, fz = []
-  for (var i = nums.length -1; i>=0; i--) {
-    if (! m[nums[i]]) m[nums[i]] = [];
-    m[nums[i]].push(i)
-  }
-  for (var i =0; i < nums.length; i++) {
-    for (var j=i+1; j< nums.length - 1;j++) {
-      var k = m[-(nums[i] + nums[j])]
-      if (k ) {
-        for (var mk = k.length -1; mk>=0;mk--) {
-          if (k[mk] > j && fz.indexOf(nums[i]+','+nums[j]) < 0 &&  fz.indexOf(nums[j]+','+nums[i]) <0 && fz.indexOf(nums[i]+','+nums[k[mk]]) < 0) {
-            
-              r.push([nums[i], nums[j], nums[k[mk]]])
-              fz.push(nums[i]+','+nums[j])
-              fz.push(nums[j]+','+nums[k[mk]])
-              fz.push(nums[i]+','+nums[k[mk]])
-           
-            
-          }
 
-        }
-          
+var threeSumClosest = function(nums, target) {
+  var n = nums.sort((a,b) => { return a - b })
+
+  var  len = nums.length , closet =  target - nums[0]*3
+
+  for (var i =0; i < len;i++) {
+    if (i > 0 && n[i] == n[i-1] ) continue
+    var j = i+1, k = len - 1
+
+    while(j < k) {
+      var s = n[i] + n[j] + n[k];
+
+      if (s > target) {
+        k--
+        if (s-target <= (closet >= 0? closet : -closet) ) closet = s - target
+      }
+      else if (s < target) {
+      j++
+      if (target -s <= (closet >= 0? closet : -closet)) closet = s - target
+      } else {
+        return target
       }
     }
+
+    
   }
-  return r
+
+  return target+closet
 };
 
 
 console.log(
-threeSum([-1, 0, 1, 2, -1, -4])
+// threeSumClosest([-1,2,1,-4], 1)+'\n',
+// threeSumClosest([0,0,0],1),
+threeSumClosest([0,1,2],3)
   )
-
-console.log(
-
-  threeSum()
-  )
-
 
 
 
