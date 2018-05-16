@@ -6,25 +6,48 @@
 <body>
 <script type="text/javascript">
 	
-var d = Date.now();
-
-var isPalindrome = function(x) {
-  if (x<0) return false
-  if (x==0) return true
-
-  var y = 0, p =10, z =x
-  while(z) {
-    y=y*10+z%10
-    z = parseInt(z/10)
+var threeSum = function(nums) {
+  var r = [], m = {}, fz = []
+  for (var i = nums.length -1; i>=0; i--) {
+    if (! m[nums[i]]) m[nums[i]] = [];
+    m[nums[i]].push(i)
   }
-  // console.log(y)
-  return x== y
+  for (var i =0; i < nums.length; i++) {
+    for (var j=i+1; j< nums.length - 1;j++) {
+      var k = m[-(nums[i] + nums[j])]
+      if (k ) {
+        for (var mk = k.length -1; mk>=0;mk--) {
+          if (k[mk] > j && fz.indexOf(nums[i]+','+nums[j]) < 0 &&  fz.indexOf(nums[j]+','+nums[i]) <0 && fz.indexOf(nums[i]+','+nums[k[mk]]) < 0) {
+            
+              r.push([nums[i], nums[j], nums[k[mk]]])
+              fz.push(nums[i]+','+nums[j])
+              fz.push(nums[j]+','+nums[k[mk]])
+              fz.push(nums[i]+','+nums[k[mk]])
+           
+            
+          }
 
+        }
+          
+      }
+    }
+  }
+  return r
 };
 
-console.log(isPalindrome(123))
 
-console.log('time :'+(Date.now()-d))
+console.log(
+threeSum([-1, 0, 1, 2, -1, -4])
+  )
+
+console.log(
+
+  threeSum()
+  )
+
+
+
+
 </script>
 </body>
 </html>
